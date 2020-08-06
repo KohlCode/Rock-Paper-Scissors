@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
 </head>
 <body>
     
@@ -11,41 +11,46 @@
     
     
     <script>
+
+        // Randomly Generates Computers choice 
         function computerPlay(choices) {
             return choices[Math.floor(Math.random()*choices.length)];
         }
 
+        // Plays a single round and returns outcome
         function playRound(playerSelection , computerSelection){
-            if (playerSelection == "rock" & computerSelection == "paper") {
-                return "You Lose! Paper beats rock";
-            } else if (playerSelection == "rock" & computerSelection == "scissors") {
-                return "You win! Rock beats Scissors";
-            } else if (playerSelection == "paper" & computerSelection == "scissors") {
-                return "You Lose! Scissors beats Paper";
-            } else if (playerSelection == "paper" & computerSelection == "rock") {
-                return "You win! Paper beats Rock";
-            } else if (playerSelection == "scissors" & computerSelection == "rock") {
-                return "You Lose! Rock beats Paper";
-            } else if (playerSelection == "scissors" & computerSelection == "paper") {
-                return "You Win! Scissors beats Paper" 
-            } else if (playerSelection === computerSelection) {
-                return "Draw! Try again"
-            } else {
-                return "Draw! Try again";
+            let ps = capitalize(playerSelection)
+            let cs = computerSelection
+            if ((ps == "Rock" && cs == "Scissors") ||(ps == "Scissors" && cs == "Paper") || (ps == "Paper" && cs == "Rock")) {
+                return `You Win! ${ps} beats ${cs}`;
+            }
+            else if (ps === cs) {
+                return 'Draw! Try Again'
+            }
+            else {
+                return `You lose. ${cs} beats ${ps}`;
             }
         }
 
+        //Plays 5 rounds 
         function game() {
+            const choices = ["Rock", "Paper", "Scissors"]
+            let x = 0 
+                while (x < 5){
+                let playerSelection = prompt("Rock, paper, or scissors?")
+                let computerSelection = computerPlay(choices)
+                console.log(playRound(playerSelection , computerSelection));
+                x++;
+                }
 
-        }
-
+         }   
+    
         
-        const choices = ["rock", "paper", "scissors"]
-        let playerSelection = prompt("Rock, paper, or scissors?")
-        let computerSelection = computerPlay(choices)
-        console.log(playRound(playerSelection , computerSelection))
-
-
+         function capitalize(string) {
+             let lowerCase = string.toLowerecase()
+             let properCase = lowerCase.atChar(0).toUppercase() + lowerCase.slice(1)
+             return properCase;
+         }
 
     </script>
 </body>
