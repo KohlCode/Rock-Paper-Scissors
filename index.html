@@ -12,6 +12,9 @@
     
     <script>
 
+        let pWin = 0
+        let cWin = 0
+
         // Randomly Generates Computers choice 
         function computerPlay(choices) {
             return choices[Math.floor(Math.random()*choices.length)];
@@ -19,16 +22,20 @@
 
         // Plays a single round and returns outcome
         function playRound(playerSelection , computerSelection){
-            let ps = capitalize(playerSelection)
+            let ps = toTitleCase(playerSelection)
             let cs = computerSelection
             if ((ps == "Rock" && cs == "Scissors") ||(ps == "Scissors" && cs == "Paper") || (ps == "Paper" && cs == "Rock")) {
+                pWin++;
                 return `You Win! ${ps} beats ${cs}`;
+                
             }
             else if (ps === cs) {
                 return 'Draw! Try Again'
             }
             else {
+                cWin++;
                 return `You lose. ${cs} beats ${ps}`;
+                
             }
         }
 
@@ -42,16 +49,34 @@
                 console.log(playRound(playerSelection , computerSelection));
                 x++;
                 }
-
+            whosWin(pWin,cWin);
          }   
     
         
-         function capitalize(string) {
-             let lowerCase = string.toLowerecase()
-             let properCase = lowerCase.atChar(0).toUppercase() + lowerCase.slice(1)
-             return properCase;
-         }
+         //Changes playerSelection to Title Case. Copied from stack Overflow :(. Could not solve. 
+         function toTitleCase(str) {
+        return str.replace(
+            /\w\S*/g,
+            function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+        }
+        
 
+        function whosWin(x,y,){
+            if (x > y) {
+                console.log("Player: ", x , "Computer: ", y)
+                console.log("You win the game!");
+            } else if (y > x) {
+                console.log("Player: ", x , "Computer: ", y)
+                console.log("You lose the game.");
+            } else {
+                console.log("Draw! Play again?");
+            }
+        }
+        
+         game();
     </script>
 </body>
 </html>
